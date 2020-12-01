@@ -8,17 +8,6 @@ import Layout from '@/layout'
 
 export const constantRoutes = [
   {
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index')
-      }
-    ]
-  },
-  {
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
@@ -31,6 +20,17 @@ export const constantRoutes = [
   },
 
   {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/home/index'),
+      meta: { title: 'Dashboard', icon: 'dashboard' }
+    }]
+  },
+  {
     path: '/room',
     component: Layout,
     hidden: true,
@@ -39,18 +39,6 @@ export const constantRoutes = [
       name: 'Room',
       component: () => import('@/views/home/room'),
       meta: {title: '个人中心', icon: 'dashboard', affix: false}
-    }]
-  },
-
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/home/index'),
-      meta: {title: '主页', icon: 'dashboard', affix: true}
     }]
   },
   {
@@ -79,16 +67,24 @@ export const constantRoutes = [
       }
     ]
   },
-
+  {
+    path: '/redirect',
+    component: Layout,
+    hidden: true,
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        component: () => import('@/views/redirect/index')
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
-  {path: '*', redirect: '/404', hidden: true}
+  { path: '*', redirect: '/404', hidden: true }
 ]
-
 export const asyncRoutes = []
-
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({y: 0}),
+  scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
 
