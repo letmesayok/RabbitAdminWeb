@@ -3,9 +3,9 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-/* Layout */
 import Layout from '@/layout'
 
+// 如果要添加新路由，最好在 404 前面添加
 export const constantRoutes = [
   {
     path: '/login',
@@ -27,7 +27,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/home/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '主页', icon: 'dashboard', affix: true } // affix：标签是否固定
     }]
   },
   {
@@ -78,7 +78,7 @@ export const constantRoutes = [
       }
     ]
   },
-  // 404 page must be placed at the end !!!
+  // 404 页面一定要放在最后面
   { path: '*', redirect: '/404', hidden: true }
 ]
 export const asyncRoutes = []
